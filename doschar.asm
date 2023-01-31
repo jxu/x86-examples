@@ -1,5 +1,5 @@
 ; 16-bit DOS COM example
-; nasm write16.asm -fbin -o write16.com
+; nasm doschar.asm -fbin -o doschar.com
 section .text
 start:
         mov dl, 21h ; char '!'
