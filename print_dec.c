@@ -1,13 +1,15 @@
 // print non-negative integer in decimal
 #include <stdio.h>
 
-unsigned stack[20];
+typedef unsigned long long ull;
 
-void print_dec(unsigned x)
-{
-    unsigned sp = 0; // not actual x86 sp
-    unsigned bp = sp;
-    unsigned d;
+
+void print_dec(ull x)
+{    
+    ull stack[20];
+    ull sp = 0; // not actual x86 sp
+    ull bp = sp;
+    ull d;
 
     do // run at least once to print 0
     {
