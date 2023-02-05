@@ -16,7 +16,7 @@ main:
     call    printf
     
     pop     rbp
-    mov     rax, 0      ; Return 0 
+    xor     rax, rax    ; Return 0 
     ret
        
 section .data
