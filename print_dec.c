@@ -14,14 +14,14 @@ void print_dec(ull x)
     do // run at least once to print 0
     {
         d = x % 10; 
-        stack[sp++] = d; // push
+        stack[sp++] = d + '0'; // push
         x /= 10;
     } while (x);
 
     do 
     {
         d = stack[--sp]; // pop
-        putc(d + '0', stdout);
+        putc(d, stdout);
     } while (sp != bp);
 }
 
