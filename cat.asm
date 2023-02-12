@@ -1,4 +1,4 @@
-; x86-32 linux write syscall
+; x86 32-bit linux cat program (read/write syscalls)
 ; nasm -f elf32 cat.asm && ld -m elf_i386 cat.o -o cat
 global _start
 
