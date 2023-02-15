@@ -1,28 +1,24 @@
-// print non-negative integer in decimal
-#include <stdio.h>
+#include <stdint.h>
+#include <unistd.h>
 
-typedef unsigned long long ull;
+#define STACK_SIZE 20
 
-
-void print_dec(ull x)
+// print non-negative 64-bit integer in decimal
+void print_dec(uint64_t x)
 {    
-    ull stack[20];
-    ull sp = 0; // not actual x86 sp
-    ull bp = sp;
-    ull d;
+    unsigned char stack[STACK_SIZE];
+    unsigned char sp = STACK_SIZE; // not actual x86 sp
+    unsigned char digits = 0;
 
     do // run at least once to print 0
     {
-        d = x % 10; 
-        stack[sp++] = d + '0'; // push
+        stack[--sp] = (x % 10) + '0'; // push
         x /= 10;
+        ++digits;
     } while (x);
 
-    do 
-    {
-        d = stack[--sp]; // pop
-        putc(d, stdout);
-    } while (sp != bp);
+    // one write call. credit chux
+    write(1, stack + sp, digits);
 }
 
 int main() 
