@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 int sum_digits(char *str)
 {
     int sum = 0;
