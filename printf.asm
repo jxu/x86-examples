@@ -1,10 +1,10 @@
-; Calling printf from C standard library to print decimal int
-; assemble: nasm printf.asm -f elf64 -o printf.o
+; Calling printf through main, linking C runtime 
+; https://stackoverflow.com/questions/3577922/how-to-link-a-gas-assembly
+; assemble: nasm printf.asm -f elf64
 ; link:     gcc -no-pie printf.o -o printf
 section .text
     global main
     extern printf
-
 
 main:
     push    rbp         ; 16 byte stack alignment
@@ -20,4 +20,5 @@ main:
     ret
        
 section .data
-    fmt:    db "int: %d", 10, 0
+fmt:    
+    db      `%d\n\0`    ; NASM string escapes
