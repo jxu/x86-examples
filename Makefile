@@ -1,13 +1,20 @@
-code64 = true printf
-code32 = cat 
-codedos = doscat.com doschar.com
+# Makefile that uses static pattern rules to avoid retyping compilation
 
-all: $(code64) $(code32) $(codedos)
+code64 		= true print_dec sum_digits write
+code64crt 	= printf
+code32 		= cat cat_golf yes add225 write32 write32_golf 
+codedos 	= doscat.com doschar.com
+
 
 # assemble and link into 64-bit ELF
 $(code64): %: %.asm 
 	nasm -f elf64 $< 
 	ld $@.o -o $@
+
+# assemble and link with C runtime into 64-bit ELF
+$(code64crt): %: %.asm
+	nasm -f elf64 $<
+	gcc -no-pie $@.o -o $@ 
 
 # assemble and link into 32-bit ELF
 $(code32): %: %.asm
@@ -18,3 +25,7 @@ $(code32): %: %.asm
 $(codedos): %.com: %.asm
 	nasm -f bin $< -o $@
 
+.PHONY: clean
+clean:
+	rm *.o
+	find . -type f -executable -delete
