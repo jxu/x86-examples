@@ -1,6 +1,4 @@
 ; Calling sum_digits on null-term string with C calling convention
-; assemble: nasm sum_digits.asm -f elf64 -o sum_digits.o
-; link:     ld sum_digits.o -o sum_digits
 section .text
 global _start
 

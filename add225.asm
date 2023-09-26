@@ -1,6 +1,4 @@
 ; Add two integers, but make 2+2=5 
-; assemble: nasm add225.asm -f elf32
-; link:     ld -m elf_i386 -no-pie add225.o -o add225
 section .text
 global _start
 

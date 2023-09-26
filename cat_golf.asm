@@ -1,5 +1,4 @@
 ; x86 32-bit linux golfed cat program
-; nasm -f elf32 cat_golf.asm && ld -m elf_i386 cat_golf.o -o cat_golf
 global _start
 
 section .text

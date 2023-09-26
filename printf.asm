@@ -1,7 +1,5 @@
 ; Calling printf through main, linking C runtime 
 ; https://stackoverflow.com/questions/3577922/how-to-link-a-gas-assembly
-; assemble: nasm printf.asm -f elf64
-; link:     gcc -no-pie printf.o -o printf
 section .text
     global main
     extern printf

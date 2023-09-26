@@ -1,5 +1,4 @@
 ; x86-32 linux write syscall
-; nasm -f elf32 write32.asm && ld -m elf_i386 write32.o -o write32
 global _start
 
 section .text

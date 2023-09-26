@@ -1,4 +1,3 @@
-; nasm -f elf64 print_dec.asm && ld print_dec.o -o print_dec
 global _start
 
 section .text

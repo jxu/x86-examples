@@ -1,5 +1,4 @@
 ; 16-bit DOS COM example
-; nasm doschar.asm -fbin -o doschar.com
 section .text
 start:
         mov dl, 21h ; char '!'

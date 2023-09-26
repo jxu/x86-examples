@@ -1,5 +1,4 @@
 ; write32 but only 14 bytes
-; nasm -f elf32 write_golf.asm && ld -m elf_i386 write_golf.o -o write_golf
 global _start
 
 section .text

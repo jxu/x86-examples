@@ -1,5 +1,4 @@
 ; x86-64 linux write syscall
-; nasm -f elf64 write.asm && ld write.o -o write
 global _start
 
 section .text
