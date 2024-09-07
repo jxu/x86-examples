@@ -1,0 +1,52 @@
+; x86 32-bit (golfed) varint program
+
+global _start
+
+section .text
+
+parse:                          ; edi input pointer
+        xor     eax, eax        ; eax result = 0
+        xor     ecx, ecx        ; ecx shift = 0
+
+.loop:  
+        mov     dl, BYTE [edi]  ; edx byte = *varint
+        mov     ebx, edx        ; ebx t = byte
+        and     ebx, 0x7F       ; t &= 0x7F
+        sal     ebx, cl         ; t <<= shift
+        or      eax, ebx        ; result |= t
+        add     ecx, 7          ; shift += 7
+        inc     edi             ; ++varint
+        test    dl, dl    
+        js      .loop           ; loop if byte's sign bit is set
+        ret
+            
+_start:
+        mov     edi, var1     
+        call    parse
+        mov     edi, var2
+        call    parse
+        mov     edi, var3
+        call    parse
+        mov     edi, var4
+        call    parse
+        mov     edi, var5
+        call    parse
+        mov     edi, var6
+        call    parse
+        
+exit:
+        mov     eax, 1      ; exit call number
+        xor     ebx, ebx    ; exit code 0
+        int     0x80        ; syscall
+
+section .data
+
+var1:   db      0x00                            ; 0
+var2:   db      0x81, 0x00                      ; 1
+var3:   db      0x7f, 0x00, 0x34                ; 127
+var4:   db      0xdd, 0xc7, 0x01                ; 25565
+var5:   db      0xff, 0xff, 0x7f                ; 2097151
+var6:   db      0xff, 0xff, 0xff, 0xff, 0x07    ; 2147483647
+var7:   db      0xff, 0xff, 0xff, 0xff, 0x0f    ; -1
+var8:   db      0x80, 0x80, 0x80, 0x80, 0x08    ; -2147483648
+var9:   db      0xff, 0xfe, 0xf3, 0xff, 0x02    ; 1113983
