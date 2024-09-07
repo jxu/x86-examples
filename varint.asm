@@ -4,34 +4,34 @@ global _start
 
 section .text
 
-parse:                          ; edi input pointer
+parse:                          ; esi input pointer
         xor     ebx, ebx        ; ebx result = 0
         xor     ecx, ecx        ; ecx shift = 0
 
 .loop:  
-        mov     dl, BYTE [edi]  ; edx byte = *varint
-        mov     eax, edx        ; eax t = byte
-        and     al, 0x7F        ; t &= 0x7F
+        lodsb                   ; al byte = [esi++]
+        mov     dl, al          ; save byte for test later
+        and     eax, 0x7F       ; t &= 0x7F, clear upper bits
         sal     eax, cl         ; t <<= shift
         or      ebx, eax        ; result |= t
         add     cl, 7           ; shift += 7
-        inc     edi             ; ++varint
         test    dl, dl    
         js      .loop           ; loop if byte's sign bit is set
         ret                     ; return in ebx
             
 _start:
-        mov     edi, var1     
+        mov     eax, 0x12345678
+        mov     esi, var1    
         call    parse
-        mov     edi, var2
+        mov     esi, var2
         call    parse
-        mov     edi, var3
+        mov     esi, var3
         call    parse
-        mov     edi, var4
+        mov     esi, var4
         call    parse
-        mov     edi, var5
+        mov     esi, var5
         call    parse
-        mov     edi, var6
+        mov     esi, var6
         call    parse
         
 exit:
