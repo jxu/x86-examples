@@ -5,20 +5,20 @@ global _start
 section .text
 
 parse:                          ; edi input pointer
-        xor     eax, eax        ; eax result = 0
+        xor     ebx, ebx        ; ebx result = 0
         xor     ecx, ecx        ; ecx shift = 0
 
 .loop:  
         mov     dl, BYTE [edi]  ; edx byte = *varint
-        mov     ebx, edx        ; ebx t = byte
-        and     ebx, 0x7F       ; t &= 0x7F
-        sal     ebx, cl         ; t <<= shift
-        or      eax, ebx        ; result |= t
-        add     ecx, 7          ; shift += 7
+        mov     eax, edx        ; eax t = byte
+        and     al, 0x7F        ; t &= 0x7F
+        sal     eax, cl         ; t <<= shift
+        or      ebx, eax        ; result |= t
+        add     cl, 7           ; shift += 7
         inc     edi             ; ++varint
         test    dl, dl    
         js      .loop           ; loop if byte's sign bit is set
-        ret
+        ret                     ; return in ebx
             
 _start:
         mov     edi, var1     
