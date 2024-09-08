@@ -1,8 +1,8 @@
 # Makefile that uses static pattern rules to avoid retyping compilation
 
-code64 		= true print_dec sum_digits write
+code64 		= true print_dec write
 code64crt 	= printf
-code32 		= cat cat_golf yes add225 write32 write32_golf varint
+code32 		= cat cat_golf yes add225 write32 write32_golf varint sum_digits
 codedos 	= doscat.com doschar.com
 
 
