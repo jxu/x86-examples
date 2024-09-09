@@ -6,6 +6,8 @@
 Most binaries are designed to step through with a debugger and may not exit nicely.
 DOS COM files are tested with emu2. 
 
+You can also assemble and run on godbolt.org Compiler Explorer, using Assembly source and NASM assembler.
+
 ## Debugging
 
 `gdbtui ./program` to start debugging with GDB TUI mode. 
