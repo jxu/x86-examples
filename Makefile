@@ -3,28 +3,32 @@
 code64 		= true print_dec write
 code64crt 	= printf
 code32 		= cat cat_golf yes add225 write32 write32_golf varint sum_digits
-codedos 	= doscat.com doschar.com
+codedos 	= doscat doschar
+all         = $(code64) $(code64crt) $(code32) $(codedos)
+
+AS          = nasm
+ASFLAGS     = -g
+LINK        = ld
+LDFLAGS     = 
+
+# Target-specific variables
+$(code64) $(code64crt): ASARCH = -f elf64
+$(code32):              ASARCH = -f elf32
+$(codedos):             ASARCH = -f bin
+
+$(code32): LDARCH = -m elf_i386 
+
+$(code64crt): LINK = gcc  # with C runtime
+$(codedos):   LINK = true  # no linking
+
+$(code64crt): LDFLAGS = -no-pie
 
 
-# assemble and link into 64-bit ELF
-$(code64): %: %.asm 
-	nasm -g -f elf64 $< 
-	ld $@.o -o $@
-
-# assemble and link with C runtime into 64-bit ELF
-$(code64crt): %: %.asm
-	nasm -g -f elf64 $<
-	gcc -no-pie $@.o -o $@ 
-
-# assemble and link into 32-bit ELF
-$(code32): %: %.asm
-	nasm -g -f elf32 $<
-	ld -m elf_i386 $@.o -o $@
-
-# assemble into 16-bit DOS raw binary
-$(codedos): %.com: %.asm
-	nasm -g -f bin $< -o $@
-
+# assemble and link
+$(all): %: %.asm
+	$(AS) $(ASFLAGS) $(ASARCH) $<
+	$(LINK) $(LDFLAGS) $(LDARCH) $@.o -o $@
+	
 .PHONY: clean
 clean:
 	rm *.o
