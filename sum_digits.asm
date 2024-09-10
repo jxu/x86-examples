@@ -10,7 +10,6 @@ sum_digits:                         ; input: null-terminated string in esi
         cmp     BYTE [esi], 0       ; while (*str)
         jne     .L
         ret                         ; return in edx
-
 _start:
         mov     esi, input
         jmp     sum_digits
