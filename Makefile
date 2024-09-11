@@ -2,7 +2,8 @@
 
 code64 		= true print_dec write
 code64crt 	= printf
-code32 		= cat cat_golf yes add225 write32 write32_golf varint sum_digits
+code32 		= cat cat_golf yes add225 write32 write32_golf varint sum_digits \
+			  sumdig2
 codedos 	= doscat doschar
 all         = $(code64) $(code64crt) $(code32) $(codedos)
 
@@ -24,7 +25,7 @@ $(codedos):   LINK = true  # no linking
 $(code64crt): LDFLAGS = -no-pie
 
 
-# assemble and link
+# assemble and link (one rule to rule them all)
 $(all): %: %.asm
 	$(AS) $(ASFLAGS) $(ASARCH) $<
 	$(LINK) $(LDFLAGS) $(LDARCH) $@.o -o $@
