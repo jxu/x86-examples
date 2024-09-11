@@ -3,19 +3,20 @@ int sumdig2(unsigned int n)
     char stack[10];
     int sum = 0;
     char* sp = stack;
+    int i = 0;
     do
     {
         *sp = n % 10; ++sp; // push
         n /= 10;
+        ++i;
     } while (n);
 
-    while (1) 
+    do
     {
         --sp; // pop
-        if (sp == stack) break;
+        if (!--i) break;
         --sp; sum += *sp; //pop
-        if (sp == stack) break;
-    }
+    } while (--i);
 
     return sum;
 }
